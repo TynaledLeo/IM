@@ -10,7 +10,7 @@
                 <input placeholder="Password" class="inputp" type="password" v-model="pwd">
             </div>
             
-            <button class="button">confirm</button>
+            <button class="button" @click="login()">confirm</button>
 
       </el-card>
       <button id="exit" @click="quit()">EXIT</button>
@@ -20,7 +20,7 @@
 <script>
 import { remote } from 'electron';
 export default {
-    name: 'login',
+    name: 'login',  
     data(){
         return{
             username:'',
@@ -30,13 +30,29 @@ export default {
     methods:{
         quit(){
             remote.getCurrentWindow().close();
-        }
+        },
+        login(){
+    
+    
+    this.$axios({
+    method: 'post',
+        url: 'http://42.193.107.6:8642/login',
+        data:{
+        username:this.username,
+        password:this.pwd
+    }
+    }).then(res=>{
+      console.log(res);
+      if (res.data==='OK') {   
+        this.$router.push('/home')
+      }
+    })
+    }
     }
 }
 </script>
 
 <style scoped>
-
 *{margin:0px;
   padding:0px;
   font-family: Arial, Helvetica, sans-serif;
@@ -73,6 +89,7 @@ export default {
 
 }
 .inputp{
+    padding: 10px;
     margin: 10px;
     margin-top: 30px;
     width: 60%;
