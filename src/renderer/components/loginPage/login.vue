@@ -7,47 +7,44 @@
             <div class="subtitle">Authorize Login</div>
             <div id="inputob">
                 <input placeholder="Username"  class="inputp" v-model="username">
-                <input placeholder="Password" class="inputp" type="password" v-model="pwd">
+                <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" >
             </div>
             
             <button class="button" @click="login()">confirm</button>
 
       </el-card>
-      <button id="exit" @click="quit()">EXIT</button>
+    <toolpad></toolpad>
   </div>
 </template>
 
 <script>
-import { remote } from 'electron';
+import toolpad from '../toolpad/toolpad.vue';
 export default {
+  components: { toolpad },
     name: 'login',  
     data(){
         return{
             username:'',
-            pwd:''
+            pwd:'',
+            ismax:'MAX',
         }
     },
     methods:{
-        quit(){
-            remote.getCurrentWindow().close();
-        },
         login(){
-    
-    
-    this.$axios({
-    method: 'post',
-        url: 'http://42.193.107.6:8642/login',
-        data:{
-        username:this.username,
-        password:this.pwd
-    }
-    }).then(res=>{
-      console.log(res);
-      if (res.data==='OK') {   
-        this.$router.push('/home')
-      }
-    })
-    }
+            this.$axios({
+            method: 'post',
+                url: 'http://42.193.107.6:8642/login',
+                data:{
+                username:this.username,
+                password:this.pwd
+            }
+            }).then(res=>{
+              console.log(res);
+              if (res.data==='OK') {   
+                this.$router.push('/home')
+              }
+            })
+        }
     }
 }
 </script>
@@ -111,15 +108,5 @@ export default {
     border-radius: 3px;
     color: #ffffff;
 }
-#exit{
-    width: 15%;
-    height: 5vh;
-    background-color: #ffffff;
-    border: gray;
-    font-size: 19px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    border-radius: 3px;
-}
+
 </style>    
