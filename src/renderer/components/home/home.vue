@@ -1,7 +1,14 @@
 <template>
   <div id="bg">
     <div id="topbar">
-        
+        <div :class="status">
+        </div>
+        <div id="total">
+        <div class="total_sub">Now {{online}} Users Online</div>
+        <div class="total_sub">Total {{all}} Users</div>
+        </div>
+        <input id="search" placeholder=" PRESS ENTER TO SEARCH FRIENDS" @keydown.enter="searchFriend" v-model="searchKey">
+
     </div>
     <div id="list">
 
@@ -10,7 +17,9 @@
 
     </div>
     <div id="msgdk">
-
+    </div>
+    <div id="dialogbg" v-if="ishow"></div>
+    <div id="dialog" v-if="ishow">
     </div>
     <toolpad></toolpad>
     <span id="title">IM:Welcome Back , {{username}} :)  </span>
@@ -25,11 +34,18 @@ export default {
     data(){
         return{
             username:'',
-            pwd:''
+            pwd:'',
+            status:'mystatusG',
+            searchKey:'',
+            ishow:false,
+            online:'',
+            all:''
         }
     },
     methods:{
-
+        searchFriend(){
+            this.ishow = !this.ishow
+        }
     }
 }
 </script>
@@ -38,6 +54,7 @@ export default {
 *{margin:0px;
   padding:0px;
   font-family: Arial, Helvetica, sans-serif;
+  z-index: 1;
  }
 #bg{height: 100vh;
     background: #0299d8;
@@ -101,5 +118,58 @@ export default {
     left: 30%;
     color: #ffffff;
     font-size: 20px;
+}
+.mystatusG{
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgb(51, 255, 0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgb(51, 255, 0);
+    width: 1vw;
+    height: 10vh;
+}
+#total{
+    position: absolute;
+    top: 0;
+    left: .5vw;
+    background-color: rgb(253, 253, 253);
+    height: 10vh;
+}
+.total_sub{
+    margin: 10px;
+    margin-top: 20px;
+    font-size: 15px;
+}
+#search{
+    position: absolute;
+    top: 2vh;
+    left: 25vw;
+    background-color: rgb(224, 224, 224);
+    height: 6vh;
+    width: 40vw;
+    border: #0094d9;
+    box-shadow: 0 0 3px #d1d1d1;
+    border-radius: 3px;
+    font-size: 22px;
+    padding: 5px;
+}
+#dialogbg{
+    position: fixed;
+    width: 99%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#dialog{
+    border-radius: 5px;
+    position: absolute;
+    top: 25vh;
+    left: 25%;
+    background-color: white;
+    width: 50vw;
+    height: 50vh;
+    z-index: 100;
 }
 </style>    

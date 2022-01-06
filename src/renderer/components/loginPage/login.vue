@@ -42,6 +42,8 @@ export default {
               console.log(res);
               if (res.data==='OK') {   
                 this.$router.push('/home')
+              }else{
+                  alert("Login failed,Please check your username or password");
               }
             })
         }
