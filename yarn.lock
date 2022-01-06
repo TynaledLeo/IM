@@ -3034,7 +3034,7 @@
     "minimist" "^1.2.0"
     "plist" "^3.0.1"
 
-"electron-packager@^12.1.0":
+"electron-packager@^12.2.0":
   "integrity" "sha1-444HAqEuX2KgCgOqvQua0orrq0s="
   "resolved" "https://registry.nlark.com/electron-packager/download/electron-packager-12.2.0.tgz"
   "version" "12.2.0"

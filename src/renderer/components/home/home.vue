@@ -41,7 +41,7 @@ export default {
  }
 #bg{height: 100vh;
     background: #0299d8;
-    background: linear-gradient(45deg, #5a3694 0%, #13bdce 33%, #0094d9 66%, #6fc7b5 100%);
+    background: linear-gradient(45deg, #365794 0%, #13bdce 33%, #0094d9 66%, #6fc7b5 100%);
     background-size: 400%;
     background-position: 0% 100%;
     animation: gradient 10s ease-in-out infinite;}
