@@ -7,7 +7,7 @@
         <div class="total_sub">Now {{online}} Users Online</div>
         <div class="total_sub">Total {{all}} Users</div>
         </div>
-        <input id="search" placeholder=" PRESS ENTER TO SEARCH FRIENDS" @keydown.enter="searchFriend" v-model="searchKey">
+        <input id="search" placeholder=" PRESS ENTER TO SEARCH FRIENDS" @keydown.enter="searchFriend" v-model="searchKey" :disabled="isdisabled">
 
     </div>
     <div id="list">
@@ -20,6 +20,7 @@
     </div>
     <div id="dialogbg" v-if="ishow"></div>
     <div id="dialog" v-if="ishow">
+        <button @click="toggleClose" id="closebtn">CLOSE</button>
     </div>
     <toolpad></toolpad>
     <span id="title">IM:Welcome Back , {{username}} :)  </span>
@@ -34,18 +35,25 @@ export default {
     data(){
         return{
             username:'',
-            pwd:'',
             status:'mystatusG',
             searchKey:'',
             ishow:false,
             online:'',
-            all:''
+            all:'',
+            isdisabled:false
         }
     },
     methods:{
         searchFriend(){
-            this.ishow = !this.ishow
-        }
+            this.toggleClose();
+        },
+        toggleClose(){
+            this.ishow = !this.ishow;
+            this.isdisabled = !this.isdisabled;
+        }   
+    },
+    mounted(){
+        this.username = this.$route.query.name;
     }
 }
 </script>
@@ -171,5 +179,17 @@ export default {
     width: 50vw;
     height: 50vh;
     z-index: 100;
+}
+#closebtn{
+    position: absolute;
+    width: 10%;
+    height: 3vh;
+    background-color: red;
+    border: #ffffff;
+    color: white;
+    right: 1vw;
+    bottom: 1vh;
+    border-radius: 5px;
+
 }
 </style>    

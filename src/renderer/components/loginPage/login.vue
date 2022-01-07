@@ -41,7 +41,12 @@ export default {
             }).then(res=>{
               console.log(res);
               if (res.data==='OK') {   
-                this.$router.push('/home')
+                this.$router.push({
+                   path:'/home',
+                   query:{
+                   name:this.username
+                   }
+                })
               }else{
                   alert("Login failed,Please check your username or password");
               }
