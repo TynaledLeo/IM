@@ -179,6 +179,7 @@ export default {
     width: 50vw;
     height: 50vh;
     z-index: 100;
+
 }
 #closebtn{
     position: absolute;

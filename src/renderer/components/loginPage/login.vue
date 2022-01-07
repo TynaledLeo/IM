@@ -6,14 +6,18 @@
             </div>
             <div class="subtitle">Authorize Login</div>
             <div id="inputob">
-                <input placeholder="Username"  class="inputp" v-model="username">
-                <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" >
+                <input placeholder="Username"  class="inputp" v-model="username" @keydown.enter="login()" :disabled="isdisabled">
+                <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" :disabled="isdisabled" >
             </div>
             
             <button class="button" @click="login()">confirm</button>
 
       </el-card>
     <toolpad></toolpad>
+    <div id="dialogbg" v-if="ishow"></div>
+    <div id="dialog" v-if="ishow">
+        Process Link To Server
+    </div>
   </div>
 </template>
 
@@ -27,10 +31,14 @@ export default {
             username:'',
             pwd:'',
             ismax:'MAX',
+            ishow:false,
+            isdisabled:false,
         }
     },
     methods:{
         login(){
+            this.isdisabled = true;
+            this.ishow = true;
             this.$axios({
             method: 'post',
                 url: 'http://42.193.107.6:8642/login',
@@ -41,6 +49,7 @@ export default {
             }).then(res=>{
               console.log(res);
               if (res.data==='OK') {   
+                
                 this.$router.push({
                    path:'/home',
                    query:{
@@ -48,7 +57,9 @@ export default {
                    }
                 })
               }else{
-                  alert("Login failed,Please check your username or password");
+                    this.isdisabled = false;
+                    this.ishow = false;
+                    alert("Login failed,Please check your username or password");
               }
             })
         }
@@ -115,5 +126,26 @@ export default {
     border-radius: 3px;
     color: #ffffff;
 }
-
+#dialogbg{
+    position: fixed;
+    width: 99%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#dialog{
+    border-radius: 5px;
+    position: absolute;
+    top: 25vh;
+    left: 25%;
+    background-color: white;
+    width: 50vw;
+    height: 50vh;
+    z-index: 100;
+    font-size: 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 </style>    
