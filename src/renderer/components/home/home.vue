@@ -11,12 +11,17 @@
 
     </div>
     <div id="list">
-
+        <div id="listsubtitle">FriendsList</div>
+        <div id="friendunit" v-for="item in this.friendsList" :key="item.name">{{item.name}}</div>
     </div>
     <div id="msg">
 
     </div>
     <div id="msgdk">
+        <div id="dktitle">
+
+        </div>
+        <textarea name="1" id="textdk" cols="30" rows="10"></textarea>
     </div>
     <div id="dialogbg" v-if="ishow"></div>
     <div id="dialog" v-if="ishow">
@@ -56,7 +61,8 @@ export default {
             defaultqu:{
                 username: '',
                 id: ''
-            }
+            },
+            friendsList:[]
         }
     },
     methods:{
@@ -85,10 +91,23 @@ export default {
             }
             this.ishow = !this.ishow;
             this.isdisabled = !this.isdisabled;
+        },
+        getFriendsList(){
+            this.$axios({
+            method: 'get',
+                url: 'http://42.193.107.6:8642/getFriendList',
+                params:{
+                    name : this.username
+                }
+            }).then(result=>{
+                console.log(result.data);
+                this.friendsList = result.data;
+            })
         }   
     },
     mounted(){
         this.username = this.$route.query.name;
+        this.getFriendsList()
     }
 }
 </script>
@@ -235,5 +254,44 @@ export default {
     background-color: #f8f5f5;
     height: 30vh;
     top: 10%;
+}
+#listsubtitle{
+    border-radius: 3PX;
+    color: rgb(0, 162, 255);
+    width: 100%;
+    background-color: #f8f5f5;
+    font-size: 30PX;
+}
+#friendunit{
+    border-radius: 3PX;
+    color: rgb(92, 92, 92);
+    width: 100%;
+    background-color: #ffffff;
+    font-size: 25PX;
+    border-top: 1px solid rgb(236, 236, 236);
+    border-bottom: 1px solid rgb(236, 236, 236);
+    height: 8vh;
+}
+#friendunit:hover {
+    color: rgb(255, 255, 255);
+    background-color: #35a9f7;
+}
+#dktitle{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 4vh;
+    background-color: #24baff;
+    border-radius: 3px;
+}
+#textdk{
+    position: absolute;
+    width: 100%;
+    height: 24vh;
+    border-radius: 3px;
+    bottom: 0;
+    border: none;
+    resize:none;
+    outline: none;
 }
 </style>    
