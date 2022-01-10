@@ -1,7 +1,7 @@
 'use strict'
 
 process.env.NODE_ENV = 'production'
-
+const Multispinner = require('multispinner')
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')

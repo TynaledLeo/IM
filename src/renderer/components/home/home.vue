@@ -20,7 +20,15 @@
     </div>
     <div id="dialogbg" v-if="ishow"></div>
     <div id="dialog" v-if="ishow">
-        <button @click="toggleClose" id="closebtn">CLOSE</button>
+        <div id="showbox">
+            <div>
+            {{queryuser.name}}
+            </div>
+            <div>
+            ID:{{queryuser.id}}
+            </div>
+        </div>
+        <button @click="toggleClose(1)" id="closebtn">CLOSE</button>
     </div>
     <toolpad></toolpad>
     <span id="title">IM:Welcome Back , {{username}} :)  </span>
@@ -40,14 +48,41 @@ export default {
             ishow:false,
             online:'',
             all:'',
-            isdisabled:false
+            isdisabled:false,
+            queryuser:{
+                username: '',
+                id: ''
+            },
+            defaultqu:{
+                username: '',
+                id: ''
+            }
         }
     },
     methods:{
         searchFriend(){
-            this.toggleClose();
+            this.$axios({
+            method: 'get',
+                url: 'http://42.193.107.6:8642/queryuser',
+                params:{
+                    name : this.searchKey
+            }
+            }).then((result) => {
+                console.log(result.data);
+                if(result.data === "ERROR"){
+                alert("There are currently no users with this name, please re-enter it")
+                }else{
+                    this.queryuser = result.data;
+                this.toggleClose();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
         },
-        toggleClose(){
+        toggleClose(x){
+            if (x===1) {
+                this.queryuser = this.defaultqu;
+            }
             this.ishow = !this.ishow;
             this.isdisabled = !this.isdisabled;
         }   
@@ -191,6 +226,14 @@ export default {
     right: 1vw;
     bottom: 1vh;
     border-radius: 5px;
-
+}
+#showbox{
+    position: absolute;
+    font-size: 25px;
+    width: 80%;
+    left: 10%;
+    background-color: #f8f5f5;
+    height: 30vh;
+    top: 10%;
 }
 </style>    

@@ -49,7 +49,6 @@ export default {
             }).then(res=>{
               console.log(res);
               if (res.data==='OK') {   
-                
                 this.$router.push({
                    path:'/home',
                    query:{
