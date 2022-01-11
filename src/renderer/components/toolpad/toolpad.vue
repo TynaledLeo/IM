@@ -27,6 +27,7 @@ export default {
                 this.ismax = 'RESTORE'
                 remote.getCurrentWindow().maximize();
             }else{
+                remote.getCurrentWindow().setPosition(360,140);
                 this.ismax = 'MAX'
                 remote.getCurrentWindow().setContentSize(1200,800);
             }
