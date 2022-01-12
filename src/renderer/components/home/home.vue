@@ -20,8 +20,8 @@
     <div id="msgdk">
         <div id="dktitle">
 
-        </div>
-        <textarea name="1" id="textdk" cols="30" rows="10"></textarea>
+        </div>  
+        <textarea name="1" id="textdk" cols="30" rows="10" v-model="textd" @keydown.enter="sendMsg()"></textarea>
     </div>
     <div id="dialogbg" v-if="ishow"></div>
     <div id="dialog" v-if="ishow">
@@ -62,7 +62,9 @@ export default {
                 username: '',
                 id: ''
             },
-            friendsList:[]
+            friendsList:[],
+            textd:'',
+            targetUser:'Abu',
         }
     },
     methods:{
@@ -103,12 +105,37 @@ export default {
                 console.log(result.data);
                 this.friendsList = result.data;
             })
-        }   
+        } ,
+        sendMsg(){
+        this.$socket.emit('send_channel', {
+            from:this.username,
+            to:this.targetUser,
+            msg:this.textd
+        });
+        this.textd = ''
+        } 
     },
     mounted(){
         this.username = this.$route.query.name;
         this.getFriendsList()
-    }
+    } ,
+    sockets: {
+        connect: function () {
+            console.log('连接至IM服务');
+            this.sockets.subscribe(`recv_${this.username}`,re=>{
+                console.log(re);
+            })
+        },
+        customEmit: function (data) {
+        },
+        // 监听断开连接，函数
+        disconnect() {
+            console.log('IM服务断开')
+        },
+        reconnect() {
+            console.log('重新链接')
+        }
+    },
 }
 </script>
 

@@ -9,3 +9,5 @@ npm-debug.log.*
 thumbs.db
 !.gitkeep
 outputs/*
+testapp-win32-x64/*
+IM_PROTO-win32-x64/*

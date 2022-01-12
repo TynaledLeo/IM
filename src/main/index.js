@@ -24,9 +24,7 @@ function createWindow () {
     width: 1200,
     frame:false,
     resizable:false,
-    transparent:true,
-    dragable:true  
-
+    transparent:true
   })
 
   mainWindow.loadURL(winURL)
@@ -37,6 +35,7 @@ function createWindow () {
 }
 
 app.on('ready', createWindow)
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -49,3 +48,4 @@ app.on('activate', () => {
     createWindow()
   }
 })
+   

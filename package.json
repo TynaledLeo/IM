@@ -18,18 +18,19 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "packager": "electron-packager ./ testapp --win32 --out --overwrite ./outputs",
-    "dist": "electron-builder --win --x64"
+    "packager": "electron-packager ./ IM_PROTO --win32 --out --overwrite ./outputs"
   },
   "dependencies": {
     "axios": "^0.18.1",
     "element-ui": "^2.15.6",
     "qs": "^6.10.2",
     "socket.io": "^4.4.1",
+    "socket.io-client": "^4.4.1",
     "vue": "^2.5.16",
     "vue-axios": "^3.4.0",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.1",
+    "vue-socket.io": "^3.0.10",
     "vuex": "^3.0.1",
     "vuex-electron": "^1.0.0"
   },
@@ -50,7 +51,6 @@
     "del": "^3.0.0",
     "devtron": "^1.4.0",
     "electron": "^2.0.4",
-    "electron-builder": "^22.14.5",
     "electron-debug": "^1.5.0",
     "electron-devtools-installer": "^2.2.4",
     "electron-packager": "^12.2.0",
