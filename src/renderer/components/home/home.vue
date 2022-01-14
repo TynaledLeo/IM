@@ -17,7 +17,9 @@
         <div id="friendunit" v-for="item in this.friendsList" :key="item.name" @click="switchChannel(item.name)">{{item.name}}</div>
     </div>
     <div id="msg">
-
+    <div class="msgtl" >
+        <span>与{{this.targetUser}}聊天</span>    
+    </div>
     </div>
     <div id="msgdk">
         <div id="dktitle">
@@ -99,7 +101,7 @@ export default {
         addConfirm(from,code){
             this.$axios({
                 method:'post',
-                url: 'http://localhost:8642/addconfirm',
+                url: 'http://42.193.107.6:8642/addconfirm',
                 data:{
                     to:this.username,
                     from:from,
@@ -107,12 +109,13 @@ export default {
                 }}).then(res=>{
                     console.log(res);
                     this.getInvList();
+                    this.getFriendsList();
                 })
         },
         getInvList(){
             this.$axios({
                 method:'get',
-                url: 'http://localhost:8642/getinvitelist',
+                url: 'http://42.193.107.6:8642/getinvitelist',
                 params:{
                     user:this.username
                 }}).then(res=>{
@@ -123,7 +126,7 @@ export default {
         addFriend(){
             this.$axios({
                 method:'post',
-                url: 'http://localhost:8642/addfriend',
+                url: 'http://42.193.107.6:8642/addfriend',
                 data:{
                     from:this.username,
                     to:this.searchKey
@@ -152,7 +155,7 @@ export default {
         searchFriend(){
             this.$axios({
             method: 'get',
-                url: 'http://localhost:8642/queryuser',
+                url: 'http://42.193.107.6:8642/queryuser',
                 params:{
                     name : this.searchKey
             }
@@ -185,7 +188,7 @@ export default {
         getFriendsList(){
             this.$axios({
             method: 'get',
-                url: 'http://localhost:8642/getFriendList',
+                url: 'http://42.193.107.6:8642/getFriendList',
                 params:{
                     name : this.username
                 }
@@ -458,5 +461,9 @@ export default {
     background-color: #ff002b;
     color: white;
     border: none;
+}
+.msgtl{
+    background-color: #35a9f7;
+    color: white;
 }
 </style>    

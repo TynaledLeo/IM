@@ -47,7 +47,7 @@ export default {
             this.ishow = true;
             this.$axios({
                 method: 'post',
-                url: 'http://localhost:8642/login',
+                url: 'http://42.193.107.6:8642/login',
                 data:{
                 username:this.username,
                 password:this.pwd

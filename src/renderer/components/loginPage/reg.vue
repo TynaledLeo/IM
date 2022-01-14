@@ -65,7 +65,7 @@ export default {
                         //用户存在校验
                         this.$axios({
                             method:'post',
-                            url: 'http://localhost:8642/reg',
+                            url: 'http://42.193.107.6:8642/reg',
                             data:this.userform
                         }).then(res=>{
                             if (res.data===101) {
