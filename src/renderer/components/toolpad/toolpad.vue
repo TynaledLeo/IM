@@ -19,6 +19,9 @@ export default {
     },
     methods:{
         quit(){
+            if (this.$parent.disconnect) {
+                this.$parent.disconnect()
+            }
             remote.getCurrentWindow().close();
         },
         max(){

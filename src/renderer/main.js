@@ -9,9 +9,10 @@ import qs from 'qs';
 import VueSocketIO from 'vue-socket.io'
 
 import SocketIO from 'socket.io-client'
+
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO('ws://42.193.107.6:2468'),  // 连接后端地址
+  connection: SocketIO('ws://localhost:2468'),  // 连接后端地址
 }))
 
 Vue.prototype.$axios = axios

@@ -10,9 +10,10 @@
                 <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" :disabled="isdisabled" >
             </div>
             
-            <button class="button" @click="login()">confirm</button>
+            <button class="button" @click="login()">CONFIRM</button>
 
       </el-card>
+    <button class="reg" @click="reg()">REGISTER</button>
     <toolpad></toolpad>
     <div id="dialogbg" v-if="ishow"></div>
     <div id="dialog" v-if="ishow">
@@ -36,12 +37,17 @@ export default {
         }
     },
     methods:{
+        reg(){
+            this.$router.push({
+                   path:'/reg'
+            })
+        },
         login(){
             this.isdisabled = true;
             this.ishow = true;
             this.$axios({
-            method: 'post',
-                url: 'http://42.193.107.6:8642/login',
+                method: 'post',
+                url: 'http://localhost:8642/login',
                 data:{
                 username:this.username,
                 password:this.pwd
@@ -64,7 +70,8 @@ export default {
         }
     },
     mounted(){
-
+        this.username = this.$route.query.username;
+        this.pwd = this.$route.query.password;
     }
 }
 </script>
@@ -121,7 +128,7 @@ export default {
     height: 5vh;
     background-color: #0094d9;
     border: gray;
-    font-size: 19px;
+    font-size: 16px;
     position: absolute;
     bottom: 20px;
     right: 20px;
@@ -149,5 +156,17 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+.reg{
+    width: 20%;
+    height: 5vh;
+    background-color: #0094d9;
+    border: gray;
+    font-size: 19px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    border-radius: 3px;
+    color: #ffffff;
 }
 </style>    
