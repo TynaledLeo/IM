@@ -18,13 +18,21 @@
     </div>
     <div id="msg">
     <div class="msgtl" >
-        <span>与{{this.targetUser}}聊天</span>    
+        <span>与{{this.targetUser}}聊天</span>
     </div>
+    <el-scrollbar style="height:90%" ref="myScrollbar">
+    <div v-for="item in this.msgl" :key="item.id" >
+    {{item.IM_MSG_FROM}}:
+    <div class="msgd">
+        {{item.IM_MSG}}
+    </div>
+    </div>
+    </el-scrollbar>
+    
+
     </div>
     <div id="msgdk">
-        <div id="dktitle">
-
-        </div>  
+        <div id="dktitle"></div>  
         <textarea name="1" id="textdk" cols="30" rows="10" v-model="textd" @keydown.enter="sendMsg()"></textarea>
     </div>
     <div id="dialogbg" v-if="bishow"></div>
@@ -89,14 +97,20 @@ export default {
             friendsList:[],
             textd:'',
             targetUser:' ',
+            msgl:[],
         }
     },
-
+    updated: function() {
+      this.scrollDown()
+    },
     methods:{
         showInvite(){
             this.bishow = !this.bishow;
             this.inviteList = !this.inviteList;
             this.getInvList()
+        },
+        scrollDown() {
+        this.$refs['myScrollbar'].wrap.scrollTop = this.$refs['myScrollbar'].wrap.scrollHeight
         },
         addConfirm(from,code){
             this.$axios({
@@ -151,6 +165,22 @@ export default {
         },  
         switchChannel(name){
             this.targetUser = name;
+            this.getmsgl();
+        },
+        getmsgl(){
+            this.$axios({
+                method: 'get',
+                url: 'http://42.193.107.6:8642/getMsgList',
+                params:{
+                    from : this.username,
+                    to : this.targetUser
+            }
+            }).then(res=>{
+                console.log(res);
+                this.msgl = res.data;
+            }).catch(err=>{
+                console.log(err);
+            })
         },
         searchFriend(){
             this.$axios({
@@ -204,22 +234,19 @@ export default {
             msg:this.textd
         });
         this.textd = ''
+        this.getmsgl();
+
         } 
     },
     mounted(){
         this.username = this.$route.query.name;
         this.getFriendsList()
+        this.$socket.emit('login',this.username);
+
     } ,
     sockets: {
         connect: function () {
-            console.log('连接至IM服务');
-            console.log('开始监听通讯频道');
-            this.sockets.subscribe(`msg_${this.username}`,re=>{
-                console.log(re);
-            })
-            this.sockets.subscribe(`notice_${this.username}`,re=>{
-                alert(re.msg)
-            })
+        this.$message.success('连接至IM服务')
         },
         customEmit: function (data) {
         },
@@ -229,6 +256,17 @@ export default {
         },
         reconnect() {
             console.log('重新链接')
+        },
+        recv(msg){
+            if (msg.from===this.targetUser) {
+                this.getmsgl();
+            }else{   
+                this.$message.success(msg.from+':'+msg.msg);
+            }
+        },
+        notice(params){
+            this.getmsgl();
+            this.$message(params);
         }
     },
 }
@@ -283,7 +321,7 @@ export default {
     position: absolute;
     top: 14vh;
     left: 27%;
-    background-color: white;
+    background-color: rgb(241, 241, 241);
     width: 47vw;
     height: 45vh;
 }
@@ -466,4 +504,16 @@ export default {
     background-color: #35a9f7;
     color: white;
 }
+
+.msgd{
+    width: auto;
+    background-color: #ffffff;
+    border-radius: 3px;
+    margin: 10px;
+}
 </style>    
+<style>
+.el-scrollbar__wrap    {
+    overflow-x: hidden!important;
+}
+</style>

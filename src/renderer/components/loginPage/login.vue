@@ -6,7 +6,7 @@
             </div>
             <div class="subtitle">Authorize Login</div>
             <div id="inputob">
-                <input placeholder="Username"  class="inputp" v-model="username" @keydown.enter="login()" :disabled="isdisabled">
+                <input placeholder="Account"  class="inputp" v-model="username" @keydown.enter="login()" :disabled="isdisabled">
                 <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" :disabled="isdisabled" >
             </div>
             
