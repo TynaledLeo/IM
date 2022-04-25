@@ -65,7 +65,7 @@ export default {
                         //用户存在校验
                         this.$axios({
                             method:'post',
-                            url: 'http://42.193.107.6:8642/reg',
+                            url: 'http://localhost:8642/reg',
                             data:this.userform
                         }).then(res=>{
                             if (res.data===101) {
@@ -108,7 +108,7 @@ export default {
 <style scoped>
 *{margin:0px;
   padding:0px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: FTNT;
  }
 #bg{height: 100vh;
     background: #0299d8;

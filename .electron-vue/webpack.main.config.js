@@ -7,6 +7,7 @@ const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 
 const MinifyPlugin = require("babel-minify-webpack-plugin")
+const utils = require('qs/lib/utils')
 
 let mainConfig = {
   entry: {

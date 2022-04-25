@@ -4,16 +4,16 @@
         <div :class="status">
         </div>
         <div id="total">
-        <div class="total_sub">当前{{online}}名好友在线</div>
-        <div class="total_sub">共{{all}}名好友</div>
+        <div class="total_sub" style="font-family: FTNT">当前{{online}}名好友在线</div>
+        <div class="total_sub" style="font-family: FTNT">共{{all}}名好友</div>
         </div>
-        <input id="search" placeholder=" PRESS ENTER TO SEARCH FRIENDS" @keydown.enter="searchFriend" v-model="searchKey" :disabled="isdisabled">
+        <input id="search" placeholder=" PRESS ENTER TO SEARCH FRIENDS" @keyup.enter.native="searchFriend()" v-model="searchKey" :disabled="isdisabled">
         <div id="invite" @click="showInvite()">
             好友邀请
         </div>
     </div>
     <div id="list">
-        <div id="listsubtitle">好友列表</div>
+        <div id="listsubtitle" style="font-family: FTNT">好友列表</div>
         <div id="friendunit" v-for="item in this.friendsList" :key="item.name" @click="switchChannel(item.name)">{{item.name}}</div>
     </div>
     <div id="msg">
@@ -32,8 +32,7 @@
 
     </div>
     <div id="msgdk">
-        <div id="dktitle"></div>  
-        <textarea name="1" id="textdk" cols="30" rows="10" v-model="textd" @keydown.enter="sendMsg()"></textarea>
+        <textarea  id="textdk" cols="30" rows="10" v-model="textd" @keydown.enter="sendMsg()"></textarea>
     </div>
     <div id="dialogbg" v-if="bishow"></div>
     <div class="dialog" v-if="ishow">
@@ -115,7 +114,7 @@ export default {
         addConfirm(from,code){
             this.$axios({
                 method:'post',
-                url: 'http://42.193.107.6:8642/addconfirm',
+                url: 'http://localhost:8642/addconfirm',
                 data:{
                     to:this.username,
                     from:from,
@@ -129,7 +128,7 @@ export default {
         getInvList(){
             this.$axios({
                 method:'get',
-                url: 'http://42.193.107.6:8642/getinvitelist',
+                url: 'http://localhost:8642/getinvitelist',
                 params:{
                     user:this.username
                 }}).then(res=>{
@@ -140,7 +139,7 @@ export default {
         addFriend(){
             this.$axios({
                 method:'post',
-                url: 'http://42.193.107.6:8642/addfriend',
+                url: 'http://localhost:8642/addfriend',
                 data:{
                     from:this.username,
                     to:this.searchKey
@@ -170,7 +169,7 @@ export default {
         getmsgl(){
             this.$axios({
                 method: 'get',
-                url: 'http://42.193.107.6:8642/getMsgList',
+                url: 'http://localhost:8642/getMsgList',
                 params:{
                     from : this.username,
                     to : this.targetUser
@@ -185,7 +184,7 @@ export default {
         searchFriend(){
             this.$axios({
             method: 'get',
-                url: 'http://42.193.107.6:8642/queryuser',
+                url: 'http://localhost:8642/queryuser',
                 params:{
                     name : this.searchKey
             }
@@ -218,7 +217,7 @@ export default {
         getFriendsList(){
             this.$axios({
             method: 'get',
-                url: 'http://42.193.107.6:8642/getFriendList',
+                url: 'http://localhost:8642/getFriendList',
                 params:{
                     name : this.username
                 }
@@ -235,7 +234,6 @@ export default {
         });
         this.textd = ''
         this.getmsgl();
-
         } 
     },
     mounted(){
@@ -288,6 +286,7 @@ export default {
 @keyframes gradient{50%{background-position:100% 0}}
 
 #exit{
+    font-family: FTNT !important;
     width: 15%;
     height: 5vh;
     background-color: #ffffff;
@@ -298,7 +297,8 @@ export default {
     right: 20px;
     border-radius: 3px;
 }
-#topbar{
+::v-deep #topbar{
+    font-family: FTNT !important;
     border-radius: 5px;
     position: absolute;
     top: 2vh;
@@ -308,6 +308,8 @@ export default {
     height: 10vh;
 }
 #list{
+    font-family: FTNT !important;
+
     border-radius: 5px;
     position: absolute;
     top: 14vh;
@@ -317,6 +319,8 @@ export default {
     height: 83vh;
 }
 #msg{
+    font-family: FTNT !important;
+
     border-radius: 5px;
     position: absolute;
     top: 14vh;
@@ -351,7 +355,8 @@ export default {
     width: 1vw;
     height: 10vh;
 }
-#total{
+::v-deep #total{
+    font-family: FTNT !important;
     position: absolute;
     top: 0;
     left: .5vw;
@@ -504,8 +509,11 @@ export default {
     background-color: #35a9f7;
     color: white;
 }
-
+body{
+    font-family: FTNT;
+}
 .msgd{
+
     width: auto;
     background-color: #ffffff;
     border-radius: 3px;
@@ -516,4 +524,5 @@ export default {
 .el-scrollbar__wrap    {
     overflow-x: hidden!important;
 }
+
 </style>

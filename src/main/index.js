@@ -24,7 +24,8 @@ function createWindow () {
     width: 1200,
     frame:false,
     resizable:false,
-    transparent:true
+    transparent:true,
+
   })
 
   mainWindow.loadURL(winURL)

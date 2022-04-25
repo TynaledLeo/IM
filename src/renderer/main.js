@@ -7,13 +7,14 @@ import store from './store'
 import qs from 'qs';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueSocketIO from 'vue-socket.io'
-
+import './assets/font/fontcfg.css'
 import SocketIO from 'socket.io-client'
-
+import 'hover.css/css/hover.css'
+import './assets/style.css'
 Vue.use(new VueSocketIO({
   debug: true,
+  connection: SocketIO('ws://localhost:2468'),  // 连接后端地址
   // connection: SocketIO('ws://localhost:2468'),  // 连接后端地址
-  connection: SocketIO('ws://42.193.107.6:2468'),  // 连接后端地址
 }))
 
 Vue.prototype.$axios = axios

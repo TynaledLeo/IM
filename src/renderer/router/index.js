@@ -24,5 +24,11 @@ export default new Router({
       name: 'reg',
       component: require('@/components/loginPage/reg').default
     }
+    ,
+    {
+      path: '/home2',
+      name: 'home2',
+      component: require('@/components/home/home2').default
+    }
   ]
 })

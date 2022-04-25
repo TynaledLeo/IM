@@ -6,7 +6,7 @@
             </div>
             <div class="subtitle">Authorize Login</div>
             <div id="inputob">
-                <input placeholder="Account"  class="inputp" v-model="username" @keydown.enter="login()" :disabled="isdisabled">
+                <input placeholder="Account"  class="inputp" v-model="account" @keydown.enter="login()" :disabled="isdisabled">
                 <input placeholder="Password" class="inputp" type="password" v-model="pwd" @keydown.enter="login()" :disabled="isdisabled" >
             </div>
             
@@ -29,7 +29,7 @@ export default {
     name: 'login',  
     data(){
         return{
-            username:'',
+            account:'',
             pwd:'',
             ismax:'MAX',
             ishow:false,
@@ -47,16 +47,16 @@ export default {
             this.ishow = true;
             this.$axios({
                 method: 'post',
-                url: 'http://42.193.107.6:8642/login',
+                url: 'http://localhost:8642/login',
                 data:{
-                username:this.username,
+                account:this.account,
                 password:this.pwd
             }
             }).then(res=>{
-              console.log(res);
-              if (res.data==='OK') {   
+              if (res.data.resp) {  
+                  localStorage.setItem("user",JSON.stringify(res.data.resp)) 
                 this.$router.push({
-                   path:'/home',
+                   path:'/home2',
                    query:{
                    name:this.username
                    }
@@ -67,6 +67,7 @@ export default {
                     alert("Login failed,Please check your username or password");
               }
             })
+
         }
     },
     mounted(){
@@ -79,7 +80,6 @@ export default {
 <style scoped>
 *{margin:0px;
   padding:0px;
-  font-family: Arial, Helvetica, sans-serif;
  }
 #bg{height: 100vh;
     background: #0299d8;

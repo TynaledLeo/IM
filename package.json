@@ -18,11 +18,12 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "packager": "electron-packager ./ IM_PROTO --win32 --out --overwrite ./outputs"
+    "packager": "electron-packager ./ IM_Gen2  --out --overwrite ./outputs"
   },
   "dependencies": {
     "axios": "^0.18.1",
     "element-ui": "^2.15.6",
+    "hover.css": "^2.3.2",
     "qs": "^6.10.2",
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",

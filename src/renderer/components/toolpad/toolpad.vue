@@ -45,7 +45,6 @@ export default {
 <style scoped>
 *{margin:0px;
   padding:0px;
-  font-family: Arial, Helvetica, sans-serif;
  }
 
 #exit{
@@ -73,7 +72,7 @@ export default {
     flex-direction: row-reverse;
     width: 50%;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 40px;
+    right: 30px;
 }
 </style>    
